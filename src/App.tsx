@@ -1,13 +1,8 @@
 import React, { FC } from "react";
+import { Routing } from "./components";
 
 const App: FC = () => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold underline font-primary">
-        Hello world!
-      </h1>
-    </div>
-  );
+  return <Routing />;
 };
 
 export default App;
