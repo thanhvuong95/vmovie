@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { Header, Footer } from "./index";
+import React from "react";
 import { Outlet } from "react-router-dom";
+import { Footer, Header } from "../components";
 
-const Public: FC = () => {
+const Layout = () => {
   return (
     <>
       <Header />
@@ -11,5 +11,4 @@ const Public: FC = () => {
     </>
   );
 };
-
-export default Public;
+export default Layout;

@@ -1,5 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Water+Brush&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* custom css */
+
+.app-container {
+    @apply max-w-1200 mx-auto px-3
+}
+
+.header-item {
+    @apply py-4 px-3 cursor-pointer hover:bg-backgroundHeaderLight;
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgb(0,0,0);
+  }
+
+.scroll-bar {
+    
+}
+/* .sidebar-item {
+    @apply px-6 text-center hover:bg-sidebar-hover;
+}
+.sidebar-link {
+    @apply flex items-end py-3;
+}
+.sidebar-icon {
+    @apply inline-block mr-2 text-2xl;
+} */

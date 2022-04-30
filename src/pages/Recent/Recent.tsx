@@ -1,5 +1,7 @@
 import React from "react";
 
-export const Recent = () => {
+const Recent = () => {
   return <div>Recent</div>;
 };
+
+export default Recent;
