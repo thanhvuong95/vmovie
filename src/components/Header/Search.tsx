@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Search = () => {
+  const navigate = useNavigate();
+  const searchRef = useRef<HTMLInputElement>(null);
+  const handleSearch = (e: React.KeyboardEvent) => {
+    if (e.code === "Enter" && searchRef.current?.value.trim()) {
+      navigate({
+        pathname: "/search",
+        search: `?q=${searchRef.current?.value.trim()}`,
+      });
+      searchRef.current.value = "";
+    }
+  };
   return (
     <div className="hidden sm:flex mx-2 flex-1 max-w-[400px] order-2 ">
       <div className=" relative w-full">
@@ -8,6 +20,8 @@ export const Search = () => {
           type="text"
           className="block p-1.5 pl-5 w-full  text-black  bg-gray-50 rounded-lg outline-none shadow-sm"
           placeholder="Search..."
+          ref={searchRef}
+          onKeyUp={handleSearch}
         />
         <div className="flex absolute inset-y-0 right-0 items-center pr-3 cursor-pointer">
           <svg
