@@ -1,31 +1,36 @@
-import React, { Fragment } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useInfiniteQuery } from "react-query";
 import {
   BannerSlider,
+  HomeList,
   HomeTopSearch,
   Skeleton,
   SkeletonSlider,
-  Slider,
-  Title,
+  SkeletonTopSearch,
 } from "../../components";
 import { getHome } from "../../services";
 import { PageResponse, RecommendItem } from "../../shared/type";
 
 const Home = () => {
-  const { isLoading, data, error, hasNextPage, fetchNextPage } =
-    useInfiniteQuery<PageResponse, Error>(
-      "home",
-      ({ pageParam = 0 }) => getHome(pageParam),
-      {
-        getNextPageParam: (lastPage: any, pages) => {
-          if (lastPage?.recommendItems?.length) return pages.length;
-          else return undefined;
-        },
-        staleTime: 60 * 1000 * 3, //refetchOnWindowFocus after 3 minutes.
-        refetchOnWindowFocus: true,
-        refetchOnMount: true,
-      }
-    );
+  const mainRef = useRef<HTMLElement>(null);
+
+  const {
+    isLoading,
+    data,
+    error,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery<PageResponse, Error>(
+    "home",
+    ({ pageParam = 0 }) => getHome(pageParam),
+    {
+      getNextPageParam: (lastPage: any, pages) => {
+        if (lastPage?.recommendItems?.length) return pages.length;
+        else return undefined;
+      },
+    }
+  );
 
   const infiniteList = data?.pages.reduce(
     (acc, current) => {
@@ -47,32 +52,36 @@ const Home = () => {
     }
   );
 
+  const handleInfinite = useCallback(() => {
+    const windowHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+    const elementHeight = mainRef.current?.getBoundingClientRect().bottom;
+    const offsetHeight = 100;
+
+    if (
+      elementHeight &&
+      elementHeight < windowHeight + offsetHeight &&
+      hasNextPage
+    ) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfinite);
+    return () => window.removeEventListener("scroll", handleInfinite);
+  }, [handleInfinite]);
+
   if (isLoading) {
     return (
       <main>
         <Skeleton className="h-[50vh]" />
         <div className="app-container">
-          <div className="flex gap-8">
+          <div className="flex gap-8 pb-6">
             <div className="overflow-hidden">
               <SkeletonSlider />
             </div>
-            <div className="w-full max-w-[300px] mt-12">
-              <Skeleton className="w-[150px] h-6 rounded-md mb-6" />
-              <ul className="mt-6">
-                {[...new Array(4)].map((_, index) => (
-                  <li className="flex items-center py-2" key={index}>
-                    <Skeleton
-                      key={index}
-                      className="w-[40%] h-[60px] rounded-md mr-4"
-                    />
-                    <div className="flex-1">
-                      <Skeleton className="w-[50%] h-4 rounded-md" />
-                      <Skeleton className="w-full h-4 rounded-md mt-5" />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <SkeletonTopSearch />
           </div>
         </div>
       </main>
@@ -86,6 +95,7 @@ const Home = () => {
       </h1>
     );
   }
+
   if (!data?.pages.length) {
     return (
       <div className="grid place-content-center h-screen text-red-600 text-center">
@@ -96,7 +106,7 @@ const Home = () => {
   }
 
   return (
-    <main>
+    <main ref={mainRef}>
       {infiniteList?.banner.map((item, i) => (
         <BannerSlider slideItems={item.recommendContentVOList} key={i} />
       ))}
@@ -104,11 +114,13 @@ const Home = () => {
         <div className="flex gap-8">
           <div className="flex-1 overflow-hidden">
             {infiniteList?.other.map((item, i) => (
-              <Fragment key={i}>
-                <Title title={item.homeSectionName} />
-                <Slider key={i} slideItems={item.recommendContentVOList} />
-              </Fragment>
+              <HomeList key={i} slideItem={item} />
             ))}
+            {isFetchingNextPage && (
+              <div className="overflow-hidden">
+                <SkeletonSlider />
+              </div>
+            )}
           </div>
           <HomeTopSearch />
         </div>

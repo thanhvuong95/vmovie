@@ -12,23 +12,76 @@
     @apply max-w-1200 mx-auto px-3
 }
 
-.header-item {
-    @apply py-4 px-3 cursor-pointer hover:bg-backgroundHeaderLight;
+.nav-item {
+    @apply block p-2 cursor-pointer hover:text-yellow relative after:inline-block after:absolute after:bottom-0 after:left-0 after:w-0 after:h-1 after:bg-yellow after:rounded-md hover:after:w-full after:transition-all after:duration-300 after:ease-in;
+}
+
+
+.nav-item-mobile {
+    @apply text-center py-4 hover:bg-backgroundLight hover:text-yellow transition-all duration-200 ease-linear
+}
+
+.nav-user {
+    @apply block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100
 }
 
 .text-shadow {
     text-shadow: 0 2px 4px rgb(0,0,0);
   }
 
-.scroll-bar {
-    
-}
-/* .sidebar-item {
-    @apply px-6 text-center hover:bg-sidebar-hover;
-}
-.sidebar-link {
-    @apply flex items-end py-3;
-}
-.sidebar-icon {
-    @apply inline-block mr-2 text-2xl;
-} */
+::-webkit-scrollbar {
+    @apply w-1.5 h-3;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#777] rounded-2xl;
+    border: 1px solid #2a2f3a;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-yellow;
+  }
+ .animate-tada {
+   animation-name: tada;
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+ }
+
+  @keyframes tada {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      -ms-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    10%, 20% {
+      -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+      -ms-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+      transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    }
+  
+    30%, 50%, 70%, 90% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+      -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+  
+    40%, 60%, 80% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+      -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+  
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      -ms-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+ 
+
