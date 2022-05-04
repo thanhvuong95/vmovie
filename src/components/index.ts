@@ -18,3 +18,4 @@ export * from "./NotFound/NotFound";
 export * from "./Watch/Watch";
 export * from "./Watch/RelativeMovie";
 export * from "./Watch/MovieInfo";
+export * from "./Card/MovieCard";

@@ -9,8 +9,6 @@ const getMediaUrl = (
     definition: string;
   }[]
 ): Promise<MediaResponse[]> => {
-  console.log("params", params);
-
   return axiosClient.post("media/bathGetplayInfo", params);
 };
 
