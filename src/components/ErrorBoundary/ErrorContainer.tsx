@@ -12,15 +12,17 @@ const ErrorFallback: FC<ErrorFallbackProp> = ({
   resetErrorBoundary,
 }) => {
   return (
-    <div className="grid place-content-center h-screen text-center">
-      <p className="text-red-600 text-3xl">Something went wrong:</p>
-      <pre className="py-4">{error.message}</pre>
-      <button
-        onClick={resetErrorBoundary}
-        className="py-2 px-4 outline-none border-none bg-yellow rounded-md"
-      >
-        Try again
-      </button>
+    <div className="grid place-content-center w-full  h-screen text-center px-3">
+      <div className="app-container">
+        <p className="text-red-600 text-3xl">Something went wrong:</p>
+        <pre className="py-4 whitespace-normal">{error.message}</pre>
+        <button
+          onClick={resetErrorBoundary}
+          className="py-2 px-4 outline-none border-none bg-yellow rounded-md"
+        >
+          Try again
+        </button>
+      </div>
     </div>
   );
 };
