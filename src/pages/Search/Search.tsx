@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { Loading, MovieCard, NotFound } from "../../components";
 import { searchWihKeyword } from "../../services/search";
@@ -23,7 +23,7 @@ const Search = () => {
       searchWihKeyword(searchValue as string, sortParam),
     {
       getNextPageParam: (lastPage, pages) => {
-        // call api by param size, data result don't contain (page, totalRows ,...) => can't fetch infinite => fake fetch infinite with sort param => conflict data result.
+        // call api by param size, data result doesn't contain (page, totalRows ,...) => can't fetch infinite => fake fetch infinite with sort param => conflict data result.
         if (lastPage.searchResults.length >= 24) {
           // fetch infinite if data result >= 24 => avoid conflict data
           return lastPage.searchResults.slice(-1)[0].sort || "";

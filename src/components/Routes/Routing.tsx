@@ -29,7 +29,6 @@ export const Routing: FC = () => {
             <Route index element={<Home />} />
             <Route path="recent" element={<Recent />} />
             <Route path="explore" element={<Explore />} />
-            <Route path="auth" element={<Auth />} />
             <Route path="movie/:id" element={<Movie />} />
             <Route path="tv/:id" element={<TeleVision />} />
             <Route path="search" element={<Search />} />
@@ -39,6 +38,7 @@ export const Routing: FC = () => {
               element={<NotFound message="Oops. Page not found!" />}
             />
           </Route>
+          <Route path="auth" element={<Auth />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
