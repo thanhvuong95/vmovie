@@ -249,3 +249,14 @@ export interface MediaResponse {
   mediaUrl: string;
   totalDuration: number;
 }
+
+export interface User {
+  uid: string;
+  email: string | null;
+  photoURL: string | null;
+  displayName: string | null;
+}
+export interface StoreType {
+  user: null | User;
+  setUser: (user: any) => void;
+}
